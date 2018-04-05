@@ -13,6 +13,15 @@ class SessionForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  handleDemoLogin() {
+    return () => this.setState({
+      email: this.props.demoUser.email,
+      display_name: this.props.demoUser.display_name,
+      password: this.props.demoUser.password,
+      age: this.props.demoUser.age
+    });
+  }
+
   handleChange(field) {
     return e => this.setState({
       [field]: e.target.value
@@ -47,6 +56,9 @@ class SessionForm extends React.Component {
 
     return (
       <div className="session-form-container">
+        <form className="demo" onSubmit={this.handleSubmit}>
+          <button onClick={this.handleDemoLogin()}>Demo Login</button>
+        </form>
         <form onSubmit={this.handleSubmit} className="session-form-box">
           { header }
           <div className="session-form">
