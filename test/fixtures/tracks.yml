@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  genre: MyString
+  description: MyText
+  track_img_url: MyString
+  track_img_file: MyString
+  track_url: MyString
+  track_file: MyString
+
+two:
+  title: MyString
+  genre: MyString
+  description: MyText
+  track_img_url: MyString
+  track_img_file: MyString
+  track_url: MyString
+  track_file: MyString
