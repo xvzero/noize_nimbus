@@ -11,12 +11,8 @@ class Track < ApplicationRecord
                                                     'audio/x-mpg',
                                                     'audio/x-mpegaudio']
 
-  has_attached_file :track_img_file, default_url: "/assets/default_img.svg"
-  validates_attachment_content_type :track_img_file,
-                                    content_type: /^image\/(jpg|jpeg|pjpeg|png|x-png|gif)$/
-
   validates :title, :track_url, presence: true
-
-  belongs_to :user,
-             foreign_key: :author_id
+  
+  belongs_to :user, foreign_key: :author_id
+  has_one :track_image, dependent: :destroy
 end

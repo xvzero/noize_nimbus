@@ -1,5 +1,4 @@
 import {
-  RECEIVE_UPLOADS,
   RECEIVE_UPLOAD,
   REMOVE_UPLOAD
  } from '../actions/upload_actions';
@@ -8,8 +7,6 @@ import merge from 'lodash/merge';
 const uploadReducer = (state = {}, action) => {
   Object.freeze(state);
   switch (action.type) {
-    case RECEIVE_UPLOADS:
-      return action.uploads;
     case RECEIVE_UPLOAD:
       return merge({}, state, {[action.upload.id]: action.upload});
     case REMOVE_UPLOAD:

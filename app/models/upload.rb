@@ -1,0 +1,3 @@
+class Upload < ApplicationRecord
+  
+end

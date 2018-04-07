@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import SessionContainer from './session_form/session_container';
 import NavBarContainer from './navbar/navbar_container';
-import UploadContainer from './upload/upload_container';
+import UploadContainer from './upload/file_upload_container';
 import ProgressBarContainer from './progressbar/progressbar_container';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import {

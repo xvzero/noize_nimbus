@@ -6,11 +6,12 @@ class TrackForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
       genre: "",
-      description: ""
+      description: "",
+      update: true
     };
 
+    this.handleImageChange = this.handleImageChange.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -19,12 +20,12 @@ class TrackForm extends React.Component {
     const file = e.target.files[0];
     const fileReader = new FileReader();
 
-    fileReader.onloadend = function () {
+    fileReader.onloadend = () => {
       this.setState({
         track_img_url: fileReader.result,
-        track_img_file: file
+        track_img_file: file,
       });
-    }.bind(this);
+    };
 
     if (file) fileReader.readAsDataURL(file);
   }
@@ -35,10 +36,13 @@ class TrackForm extends React.Component {
     });
   }
 
-  handleCancel() {
+  handleCancel(e) {
+    e.preventDefault();
     const answer = confirm("Are you sure you want to stop your upload? Any unsaved changes will be lost.");
     if (answer === true) {
-      this.props.cancel(this.props.upload.id);
+      this.setState({
+        update: false
+      }, () => this.props.cancel(this.props.upload.track_file.name));
     }
   }
 
@@ -49,18 +53,30 @@ class TrackForm extends React.Component {
     formData.append('track[title]', this.state.title);
     formData.append('track[genre]', this.state.genre);
     formData.append('track[description]', this.state.description);
-    formData.append('track[track_img_url]', this.state.track_img_url);
-    formData.append('track[track_img_file]', this.state.img_file);
+    formData.append('track[track_img_file]', this.state.track_img_file);
     formData.append('track[track_url]', this.state.track_url);
     formData.append('track[track_file]', this.state.track_file);
+    this.props.processForm(formData)
+      .then(() => this.setState({update: false}))
+      .then(() => this.props.removeUpload(this.state.id));
+  }
 
-    this.props.processForm(formData).then(
-      () => this.props.history.push(`/${this.props.currentUser.profile_url}`)
+  renderErrors() {
+    return (
+      <ul>
+        {this.props.errors.map((error, number) => (
+          <li key={`error-${number}`}>{error}</li>
+        ))}
+      </ul>
     );
   }
 
   componentWillMount() {
     this.setState(merge({}, this.state, this.props.upload));
+  }
+
+  componentWillUnmount() {
+    if (this.state.update) this.props.updateUpload(this.state);
   }
 
   render() {
@@ -71,6 +87,7 @@ class TrackForm extends React.Component {
           <div className="track-img">
             <label>Update image
               <input type="file"
+                accept="image/*"
                 onChange={this.handleImageChange}
                 className="img-chooser-button"
                 style={{display: "none"}}/>
@@ -107,6 +124,7 @@ class TrackForm extends React.Component {
             <button className="save-button"
               onClick={this.handleSubmit}>Save</button>
           </div>
+          {this.renderErrors()}
         </form>
       </div>
     );

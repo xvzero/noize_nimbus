@@ -26,11 +26,6 @@ export const receiveErrors = errors => ({
   errors
 });
 
-export const removeErrors = errors => ({
-  type: REMOVE_TRACK_ERRORS,
-  errors
-});
-
 export const fetchTracks = () => dispatch => (
   APIUtil.fetchTracks().then(
     tracks => dispatch(receiveTracks(tracks)),
@@ -45,10 +40,10 @@ export const fetchTrack = trackId => dispatch => (
   ))
 );
 
-export const createTrack = trackInfo => dispatch => (
+export const createTrack = (trackInfo, upload) => dispatch => (
   APIUtil.createTrack(trackInfo).then(
     track => dispatch(receiveTrack(track)),
-    errors => (console.log(errors)
+    errors => (dispatch(receiveErrors(errors.responseJSON))
   ))
 );
 
