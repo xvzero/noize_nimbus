@@ -18,31 +18,33 @@ class NavBar extends React.Component {
 
   render() {
     return (
-      <header>
-        <nav className="header-left">
-          <Link to="/stream" className="header-logo"></Link>
-          <ul>
-            <li><Link to={this.props.currentUser ? "/stream" : "/"}
-              className="header-navMenuItem">Home</Link></li>
-            <li><Link to="/collection"
-              className="header-navMenuItem">Collection</Link></li>
-          </ul>
-        </nav>
-        <nav className="header-middle">
-        </nav>
-        <nav className="header-right">
-          <Link to="/upload" className="upload">Upload</Link>
-          { this.props.currentUser &&
-          <div className="profile-nav">
-            <Link to="/:profileUrl">{this.props.currentUser.display_name}</Link>
-          </div>
-          }
-          { this.props.currentUser &&
-            <Link to="/logout"
-              onClick={this.handleLogout}
-              className="logout">Signout</Link>
-          }
-        </nav>
+      <header className="banner">
+        <div className="navbar">
+          <header className="header-left">
+            <Link to="/" className="header-logo-link">
+              <img src="./assets/logo/logo.png" className="header-logo"/>
+            </Link>
+            <ul className="header-left-list">
+              <li className="header-left-list-item"><Link to={this.props.currentUser ? "/stream" : "/"}>Home</Link></li>
+              <li className="header-left-list-item"><Link to="/collection">Collection</Link></li>
+            </ul>
+          </header>
+          <nav className="header-middle">
+          </nav>
+          <nav className="header-right">
+            <Link to="/upload" className="upload">Upload</Link>
+            { this.props.currentUser &&
+              <div className="profile-nav">
+                <Link to="/:profileUrl">{this.props.currentUser.display_name}</Link>
+              </div>
+            }
+            { this.props.currentUser &&
+              <Link to="/logout"
+                onClick={this.handleLogout}
+                className="logout">Signout</Link>
+            }
+          </nav>
+        </div>
       </header>
     );
   }

@@ -52,52 +52,48 @@ class SessionForm extends React.Component {
 
   render() {
     const header = this.props.formType === 'Continue' ?
-      "Create your NoizeNimbus account" : "Login";
+      "Create your NoizeNimbus account" : "";
 
     return (
       <div className="session-form-container">
         <form className="demo" onSubmit={this.handleSubmit}>
           <button onClick={this.handleDemoLogin()}>Demo Login</button>
         </form>
+        <div className="session-divider"></div>
         <form onSubmit={this.handleSubmit} className="session-form-box">
-          { header }
+          <h1 className="session-form-header">{ header }</h1>
           <div className="session-form">
-            <label>Email:
+            <input type="text"
+              value={this.state.email}
+              onChange={this.handleChange('email')}
+              className="session-input"
+              placeholder="Email"
+              />
+            { this.props.formType === 'Continue' &&
               <input type="text"
-                value={this.state.email}
-                onChange={this.handleChange('email')}
+                value={this.state.display_name}
+                onChange={this.handleChange('display_name')}
                 className="session-input"
+                placeholder="Display name"
                 />
-            </label>
-            { this.props.formType === 'Continue' &&
-              <label>Display Name:
-                <input type="text"
-                  value={this.state.display_name}
-                  onChange={this.handleChange('display_name')}
-                  className="session-input"
-                  />
-              </label>
             }
-            <label>Password:
-              <input type="password"
-                value={this.state.password}
-                onChange={this.handleChange('password')}
+            <input type="password"
+              value={this.state.password}
+              onChange={this.handleChange('password')}
+              className="session-input"
+              placeholder="Password"
+              />
+            { this.props.formType === 'Continue' &&
+              <input type="number"
+                value={this.state.age}
+                onChange={this.handleChange('age')}
                 className="session-input"
+                placeholder="Age"
                 />
-            </label>
-            { this.props.formType === 'Continue' &&
-              <label>Age:
-                <input type="number"
-                  value={this.state.age}
-                  onChange={this.handleChange('age')}
-                  className="session-input"
-                  />
-              </label>
             }
-            <input type="submit"
-              value={this.props.formType}
-              className="session-submit"
-            />
+            <button className="session-submit">
+              {this.props.formType}
+            </button>
             {this.renderErrors()}
           </div>
         </form>

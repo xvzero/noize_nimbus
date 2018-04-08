@@ -15,17 +15,23 @@ class SessionOptions extends React.Component {
 
   render() {
     return (
-      <div className="session-options">
-        <button onClick={() => this.toggleModal('signin')}>
-          { 'Sign in' }
-        </button>
-        <button onClick={() => this.toggleModal('signup')}>
-          Create account
-        </button>
+      <div>
+        <div className="session-buttons">
+          <button className="signin-button"
+            onClick={() => this.toggleModal('signin')}>
+            { 'Sign in' }
+          </button>
+          <button className="signup-button"
+            onClick={() => this.toggleModal('signup')}>
+            Create account
+          </button>
+        </div>
 
         <Modal isOpen={this.state.activeModal === 'signin'}
           onRequestClose={() => this.toggleModal('')}
           ariaHideApp={false}
+          className="Modal"
+           overlayClassName="Overlay"
         >
           <LoginFormContainer />
         </Modal>
@@ -33,6 +39,8 @@ class SessionOptions extends React.Component {
         <Modal isOpen={this.state.activeModal === 'signup'}
           onRequestClose={() => this.toggleModal('')}
           ariaHideApp={false}
+          className="Modal"
+           overlayClassName="Overlay"
         >
           <SignupFormContainer />
         </Modal>
