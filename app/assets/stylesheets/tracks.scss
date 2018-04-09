@@ -1,3 +1,169 @@
-// Place all the styles related to the ApiTrack controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.track-form {
+  display: flex;
+  flex-direction: column;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  position: relative;
+  box-shadow: 0 2px 12px -5px rgba(0,0,0,.1);
+  border: 1px solid #f2f2f2;
+  padding: 14px 25px 0;
+  font-family: sans-serif;
+  width: 800px;
+  margin: 0 auto;
+
+  header {
+    font-size: 24px;
+    line-height: 1.6;
+    font-family: sans-serif;
+    margin-bottom: 10px;
+  }
+}
+
+.form-input-section {
+  display: flex;
+  width: 100%;
+  font-size: 12px;
+}
+
+.track-img {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  min-width: 260px;
+  max-width: 260px;
+  min-height: 260px;
+  max-height: 260px;
+  background: linear-gradient(to bottom right, #846170, #70929c);
+  box-shadow: rgba(0,0,0,.1)0 0 0 1px inset;
+  margin-right: 20px;
+  border: 1px solid #999;
+  overflow: hidden;
+
+  .track-img-preview {
+    position: relative;
+    background-color: #fff;
+    margin: auto;
+  }
+
+  .img-chooser-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 26px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: sans-serif;
+    font-weight: 100;
+    line-height: 20px;
+    background-color: #e5e5e5;
+    border: 1px solid #ccc;
+    color: #333;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+    position: absolute;
+
+    img {
+      height: 20px;
+      width: 20px;
+      margin-right: 5px;
+    }
+  }
+
+  .img-chooser-button:hover {
+    background-color: #fff;
+    border-color: rgba(0,0,0,.1);
+    background-clip: padding-box;
+    transition: background-color .2s ease-in-out, border-color .2s ease-in-out;
+  }
+}
+
+.track-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .track-title {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .track-url-div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    .track-user-url {
+      margin-right: 5px;
+      color: #999;
+    }
+
+    input {
+      width: inherit;
+      font-size: 12px;
+    }
+  }
+
+  .track-genre {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+
+    input {
+      width: 50%;
+    }
+  }
+
+  .track-description {
+    margin-top: 10px;
+  }
+
+  input {
+    width: 100%;
+    border: 1px solid #999;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: 100;
+    font-size: 14px;
+  }
+
+  textarea {
+    width: 100%;
+    border: 1px solid #999;
+    border-radius: 5px;
+    padding: 5px;
+    resize: vertical;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-weight: 100;
+    font-size: 14px;
+  }
+
+  .cancel-button {
+    background-color: #fff;
+    color: #000;
+    border-color: #fff;
+  }
+}
+
+.track-submit {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #ccc;
+  padding: 25px;
+}
+
+.track-errors {
+  color: #f50;
+  margin: 10px;
+  font-size: 14px;
+}
+
+.active-preview {
+  background: #fff;
+}

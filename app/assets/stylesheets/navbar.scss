@@ -12,16 +12,7 @@
 .navbar {
   display: flex;
   justify-content: space-between;
-  @media screen and (min-width: 960px) {
-    width: 960px;
-  }
-  @media screen and (min-width: 1080px) {
-    width: 1180px;
-  }
-  @media screen and (min-width: 1240px) {
-    width: 1240px;
-  }
-
+  width: 960px;
   height: 100%;
   margin: 0 auto;
   color: #ccc;

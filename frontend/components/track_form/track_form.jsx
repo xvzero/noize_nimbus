@@ -8,6 +8,7 @@ class TrackForm extends React.Component {
     this.state = {
       genre: "",
       description: "",
+      track_img_url: null,
       update: true
     };
 
@@ -42,7 +43,7 @@ class TrackForm extends React.Component {
     if (answer === true) {
       this.setState({
         update: false
-      }, () => this.props.cancel(this.props.upload.track_file.name));
+      }, () => this.props.cancel(this.props.upload.id));
     }
   }
 
@@ -63,9 +64,9 @@ class TrackForm extends React.Component {
 
   renderErrors() {
     return (
-      <ul>
+      <ul className="track-errors">
         {this.props.errors.map((error, number) => (
-          <li key={`error-${number}`}>{error}</li>
+          <li key={`error-${number}`}>{'*' + `${error}`}</li>
         ))}
       </ul>
     );
@@ -84,47 +85,58 @@ class TrackForm extends React.Component {
       <div className="track-info">
         <form className="track-form">
           <header>Basic info</header>
-          <div className="track-img">
-            <label>Update image
-              <input type="file"
-                accept="image/*"
-                onChange={this.handleImageChange}
-                className="img-chooser-button"
-                style={{display: "none"}}/>
-            </label>
+          <div className="form-input-section">
+            <div className={"track-img" + (this.state.track_img_url ? " active-preview" : "")}>
+              <img className="track-img-preview" src={this.state.track_img_url} />
+              <label className="img-chooser-button">
+                <img src="../assets/icons/camera.png"></img>
+                Update image
+                <input type="file"
+                  accept="image/*"
+                  onChange={this.handleImageChange}
+                  style={{display: "none"}}/>
+              </label>
+            </div>
+            <div className="track-content">
+              <label className="track-title">Title
+                <input type="text"
+                  value={this.state.title}
+                  onChange={this.handleChange('title')}
+                />
+              </label>
+              <div className="track-url-div">
+                <p className="track-user-url">
+                  {`noize-nimbus.herokuapp.com/${this.props.currentUser.profile_url}/ `}
+                </p>
+                <input type="text"
+                  value={this.state.track_url}
+                  onChange={this.handleChange('track_url')}
+                  className="track-url"
+                />
+              </div>
+              <label className="track-genre">Genre
+                <input type="text"
+                  value={this.state.genre}
+                  onChange={this.handleChange('genre')}
+                  placeholder="None"
+                />
+              </label>
+              <label className="track-description">Description
+                <textarea
+                  value={this.state.description}
+                  onChange={this.handleChange('description')}
+                  placeholder="Describe your track"
+                />
+              </label>
+              <div className="track-submit">
+                <button className="cancel-button"
+                  onClick={this.handleCancel}>Cancel</button>
+                <button className="save-button"
+                  onClick={this.handleSubmit}>Save</button>
+              </div>
+              {this.renderErrors()}
+            </div>
           </div>
-          <label className="track-title">Title
-            <input type="text"
-              value={this.state.title}
-              onChange={this.handleChange('title')}
-            />
-          </label>
-          <label className="track-url">
-            {`noize-nimbus.herokuapp.com/${this.props.currentUser.profile_url}/ `}
-            <input type="text"
-              value={this.state.track_url}
-              onChange={this.handleChange('track_url')}
-            />
-          </label>
-          <label className="track-genre">Genre
-            <input type="text"
-              value={this.state.genre}
-              onChange={this.handleChange('genre')}
-            />
-          </label>
-          <label className="track-description">Description
-            <textarea
-              value={this.state.description}
-              onChange={this.handleChange('description')}
-            />
-          </label>
-          <div className="track-submit">
-            <button className="cancel-button"
-              onClick={this.handleCancel}>Cancel</button>
-            <button className="save-button"
-              onClick={this.handleSubmit}>Save</button>
-          </div>
-          {this.renderErrors()}
         </form>
       </div>
     );

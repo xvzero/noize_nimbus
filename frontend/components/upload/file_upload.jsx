@@ -31,16 +31,21 @@ class FileUpload extends React.Component {
   }
 
   render() {
+    const noUploads = (Object.keys(this.props.uploads).length === 0);
     return (
-      <div>
-        <div className="file-chooser">
-          <header className="upload-header">Upload to NoizeNimbus</header>
-          <label>Choose a file to upload
+      <div className="file-upload-container">
+        {noUploads &&
+          <div className="no-file-background"></div>
+        }
+        <div className={"file-chooser" + (noUploads ? "" : " chooser-active")}>
+          <header className={"upload-header" + (noUploads ? "" : " header-active")}>Upload to NoizeNimbus</header>
+          <label className={"file-label" + (noUploads ? "" : " label-active")}>Choose a file to upload
             <input type="file"
               ref="nofile"
               onChange={this.handleAddFile}
               className="upload-file-button"
-              style={{display: "none"}}/>
+              style={{display: "none"}}
+              multiple/>
           </label>
         </div>
 
