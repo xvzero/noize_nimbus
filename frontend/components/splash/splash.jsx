@@ -8,7 +8,7 @@ class Splash extends React.Component {
       <div className="splash">
         <div className="top-bar-decoration"></div>
         <div className="splash-hue">
-          <img className="splash-image" src="./assets/splash/0.jpg" />
+          <div className="splash-image" src="./assets/splash/0.jpg" />
             <header className="top-splash">
               <div className="header-logo">
                 <img className="left-logo" src="./assets/logo/logo.png" />
