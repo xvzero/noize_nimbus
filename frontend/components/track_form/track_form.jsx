@@ -41,9 +41,12 @@ class TrackForm extends React.Component {
     e.preventDefault();
     const answer = confirm("Are you sure you want to stop your upload? Any unsaved changes will be lost.");
     if (answer === true) {
-      this.setState({
-        update: false
-      }, () => this.props.cancel(this.props.upload.id));
+      this.setState({ update: false },
+        () => {
+          this.props.removeErrors(this.state.id);
+          this.props.removeUpload(this.state.id);
+        }
+      );
     }
   }
 
@@ -57,15 +60,19 @@ class TrackForm extends React.Component {
     formData.append('track[track_img_file]', this.state.track_img_file);
     formData.append('track[track_url]', this.state.track_url);
     formData.append('track[track_file]', this.state.track_file);
-    this.props.processForm(formData)
+    this.props.processForm(formData, this.state.id)
       .then(() => this.setState({update: false}))
       .then(() => this.props.removeUpload(this.state.id));
   }
 
   renderErrors() {
+    let errors = [];
+    if (this.props.errors[this.state.id] !== undefined) {
+      errors = Object.values(this.props.errors[this.state.id]);
+    }
     return (
       <ul className="track-errors">
-        {this.props.errors.map((error, number) => (
+        {errors.map((error, number) => (
           <li key={`error-${number}`}>{'*' + `${error}`}</li>
         ))}
       </ul>

@@ -11,15 +11,19 @@ class SessionForm extends React.Component {
       age: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDemoLogin = this.handleDemoLogin.bind(this);
   }
 
-  handleDemoLogin() {
-    return () => this.setState({
-      email: this.props.demoUser.email,
-      display_name: this.props.demoUser.display_name,
-      password: this.props.demoUser.password,
-      age: this.props.demoUser.age
-    });
+  handleDemoLogin(e) {
+    e.preventDefault();
+    this.props.login({
+      email: "demo_user@demo.com",
+      display_name: "demo_user",
+      password: "demodemo",
+      age: 21
+    }).then(
+      () => this.props.history.replace(`/stream`)
+    );
   }
 
   handleChange(field) {
@@ -31,9 +35,17 @@ class SessionForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
-    this.props.processForm(user).then(
-      () => this.props.history.replace(`/stream`)
-    );
+
+    if (this.props.formType === "login") {
+      this.props.login(user).then(
+        () => this.props.history.replace(`/stream`)
+      );
+    } else {
+      this.props.signup(user).then(
+        () => this.props.history.replace(`/stream`)
+      );
+    }
+
   }
 
   renderErrors() {
@@ -56,8 +68,8 @@ class SessionForm extends React.Component {
 
     return (
       <div className="session-form-container">
-        <form className="demo" onSubmit={this.handleSubmit}>
-          <button onClick={this.handleDemoLogin()}>Demo Login</button>
+        <form className="demo">
+          <button onClick={this.handleDemoLogin}>Demo Login</button>
         </form>
         <div className="session-divider"></div>
         <form onSubmit={this.handleSubmit} className="session-form-box">

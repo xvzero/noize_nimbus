@@ -3,16 +3,20 @@ import {
   RECEIVE_TRACK,
   REMOVE_TRACK_ERRORS
 } from '../actions/track_actions';
+import merge from 'lodash/merge';
 
-const trackErrorsReducer = (state = [], action) => {
+const trackErrorsReducer = (state = {}, action) => {
   Object.freeze(state);
+  const newState = merge({}, state);
   switch (action.type) {
     case RECEIVE_TRACK_ERRORS:
-      return action.errors;
+      return merge(newState, {[action.uploadId]: action.errors});
     case REMOVE_TRACK_ERRORS:
-      return [];
+      if (newState[action.uploadId]) delete newState[action.uploadId];
+        return newState;
     case RECEIVE_TRACK:
-      return [];
+      if (newState[action.uploadId]) delete newState[action.uploadId];
+        return newState;
     default:
       return state;
   }
