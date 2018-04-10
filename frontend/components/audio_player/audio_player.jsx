@@ -19,7 +19,7 @@ class AudioPlayer extends React.Component {
     super(props);
     this.state = {
       url: null,
-      playing: false,
+      playing: true,
       volume: 1,
       muted: false,
       played: 0,

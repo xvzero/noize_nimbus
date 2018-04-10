@@ -22,7 +22,7 @@ class User < ApplicationRecord
   end
 
   def ensure_profile_url
-    self.profile_url = "user-#{SecureRandom::urlsafe_base64(10)}"
+    self.profile_url ||= "user-#{SecureRandom::urlsafe_base64(10)}"
   end
 
   def reset_session_token!
