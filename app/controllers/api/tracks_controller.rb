@@ -1,4 +1,8 @@
 class Api::TracksController < ApplicationController
+  def index
+    @tracks = Track.all
+  end
+
   def create
     @track = Track.new(
       author_id: track_params[:author_id],

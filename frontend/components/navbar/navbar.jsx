@@ -35,7 +35,7 @@ class NavBar extends React.Component {
             <Link to="/upload" className="upload">Upload</Link>
             { this.props.currentUser &&
               <div className="profile-nav">
-                <Link to="/:profileUrl">{this.props.currentUser.display_name}</Link>
+                <Link to={this.props.currentUser.profile_url}>{this.props.currentUser.display_name}</Link>
               </div>
             }
             { this.props.currentUser &&

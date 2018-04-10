@@ -1,6 +1,6 @@
 import React from 'react';
 import merge from 'lodash/merge';
-import UploadTrackForm from '../track_form/upload_track_form_container';
+import UploadTrackForm from '../track/upload_track_form_container';
 
 class UploadIndex extends React.Component {
   render() {
