@@ -7,9 +7,6 @@ import AudioPlayerContainer from './audio_player/audio_player_container';
 import TrackPageContainer from './track/track_page_container';
 import UserProfileContainer from './user/user_profile_container';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
-import { fetchUsers } from '../actions/user_actions';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 import {
   Route,
   Redirect,
@@ -23,10 +20,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { activeModal: ""};
-  }
-
-  componentDidMount() {
-    this.props.fetchUsers();
   }
 
   toggleModal(field) {
@@ -52,17 +45,4 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  users: state.entities.users,
-  tracks: state.entities.tracks,
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchUsers: () => dispatch(fetchUsers())
-});
-
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(App));
+export default App;

@@ -75,7 +75,6 @@ class AudioPlayer extends React.Component {
             onPlay={this.onPlay}
             onPause={this.onPause}
             onDuration={this.onDuration}
-            playing
             controls
           />
         </div>
