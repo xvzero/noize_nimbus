@@ -11,7 +11,7 @@ const tracksReducer = (state = {}, action) => {
     case RECEIVE_TRACKS:
       return action.tracks;
     case RECEIVE_TRACK:
-      return merge({}, state, {[action.track.id]: action.track});
+      return merge({}, state, {[action.track.track_url]: action.track});
     default:
       return state;
   }

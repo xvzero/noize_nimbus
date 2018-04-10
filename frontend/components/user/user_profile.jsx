@@ -2,8 +2,13 @@ import React from 'react';
 import TrackIndexContainer from '../track/track_index_container';
 
 class UserProfile extends React.Component {
+  componentWillMount() {
+    this.props.fetchUsers();
+  }
+
   render() {
-    const user = this.props.currentUser;
+    console.log(this.props);
+    const user = this.props.users[this.props.match.params.profileUrl];
     return (
       <div className="user-profile-container">
         <div className="profile-banner">

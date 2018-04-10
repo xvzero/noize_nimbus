@@ -29,13 +29,12 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <header>
+        <Switch>
+          <AuthRoute exact path="/" component={Splash} />
+          <Route path="/" component={NavBarContainer} />
+        </Switch>
           <Switch>
-            <AuthRoute exact path="/" component={Splash} />
-            <Route path="/" component={NavBarContainer} />
-          </Switch>
-        </header>
-          <Switch>
+            <Route path="/stream"/>
             <Route path="/upload" component={UploadContainer} />
             <Route path="/:profileUrl/:trackUrl" component={TrackPageContainer} />
             <Route path="/:profileUrl" component={UserProfileContainer} />
