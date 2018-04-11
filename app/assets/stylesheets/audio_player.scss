@@ -95,7 +95,11 @@
   justify-content: center;
   align-items: center;
   font-size: 11px;
-  width: 100%;
+  // @media (max-width: 1240px) {
+  //   width: 512px;
+  // }
+    width: 352px;
+  overflow: hidden;
 }
 
 .progressbar-wrapper {
@@ -103,8 +107,7 @@
   flex-grow: 1;
   line-height: 46px;
   font-size: 11px;
-  margin-bottom: 14px;
-  margin-right: 15px;
+  height: 46px;
 }
 
 .progressbar-wrapper {
@@ -125,43 +128,6 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-
-  input[type=range] {
-    -webkit-appearance: none;
-    width: 100%;
-    flex-grow: 1;
-    margin: 13px 10px 0 10px;
-    position: relative;
-  }
-
-  input[type=range]:focus {
-    outline: none;
-  }
-
-  input[type=range]::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 1px;
-    cursor: pointer;
-    background: #ccc;
-  }
-
-  input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    height: 8px;
-    width: 8px;
-    border-radius: 100%;
-    border: 1px solid #f50;
-    box-sizing: border-box;
-    margin-top: -4px;
-    margin-left: -4px;
-    background: #f50;
-    opacity: 0;
-  }
-}
-
-.progressbar:hover input[type=range]::-webkit-slider-thumb {
-  opacity: 1;
-  transition: opacity 150ms;
 }
 
 .volume-button-container {
@@ -170,6 +136,7 @@
   text-align: center;
   box-sizing: border-box;
   background-repeat: no-repeat;
+  position: relative;
 }
 
 .high-volume-button {
