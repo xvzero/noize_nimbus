@@ -41,6 +41,8 @@ class AudioPlayer extends React.Component {
     this.onProgress = this.onProgress.bind(this);
     this.onEnded = this.onEnded.bind(this);
     this.onDuration = this.onDuration.bind(this);
+    this.setVolume = this.setVolume.bind(this);
+    this.handleMute = this.handleMute.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
@@ -54,7 +56,6 @@ class AudioPlayer extends React.Component {
       this.setState({
         url: currentTrack.track_file_url,
         played: currentTrack.played,
-        playing: currentTrack.playing,
         track: currentTrack
       });
     }
@@ -90,7 +91,6 @@ class AudioPlayer extends React.Component {
   }
 
   onProgress(state) {
-    console.log(this.state);
     if (!this.state.seeking) this.setState(state);
   }
 
@@ -100,6 +100,14 @@ class AudioPlayer extends React.Component {
 
   onDuration(duration) {
     this.setState({ duration });
+  }
+
+  setVolume(e) {
+    this.setState({ volume: parseFloat(e.target.value) });
+  }
+
+  handleMute() {
+    this.setState({ muted: !this.state.muted });
   }
 
   render() {
@@ -149,9 +157,16 @@ class AudioPlayer extends React.Component {
           </div>
 
           <div className="loop-button-container">
-            <button className="loop-button audio-player-control-buttons"
-              onClick={this.handleLoopButton}
-            />
+            { this.state.loop === false
+              ?
+              <button className="not-looping-button audio-player-control-buttons"
+                onClick={this.handleLoopButton}
+              />
+              :
+              <button className="is-looping-button audio-player-control-buttons"
+                onClick={this.handleLoopButton}
+              />
+            }
           </div>
 
           <div className="progress-bar-container">
@@ -187,23 +202,31 @@ class AudioPlayer extends React.Component {
 
 
           <div className="volume-button-container">
-            {this.state.muted ?
-              <button className="volume-button"
-                onClick={this.handleUnmute}
+            { !this.state.muted && this.state.volume >= 0.5 &&
+              <button className="high-volume-button"
+                onClick={this.handleMute}
               />
-              :
+            }
+            { !this.state.muted && this.state.volume < 0.5 && this.state.volume > 0 &&
+              <button className="low-volume-button"
+                onClick={this.handleMute}
+              />
+            }
+            { (this.state.muted || this.state.volume === 0) &&
               <button className="mute-volume-button"
                 onClick={this.handleMute}
               />
             }
-            <input className="volume-slider"
-              type='range'
-              min={0}
-              max={1}
-              step='any'
-              defaultValue={this.state.volume}
-              onChange={this.setVolume}
-            />
+            <div className="volume-slider">
+              <input
+                type='range'
+                min={0}
+                max={1}
+                step='any'
+                defaultValue={this.state.volume}
+                onChange={this.setVolume}
+                />
+            </div>
           </div>
         </div>
       </div>

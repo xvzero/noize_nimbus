@@ -21,11 +21,20 @@ class TrackItem extends React.Component {
     const trackInfo = merge(track, this.state);
     return (
       <div className="track-container">
-        <h1 className="track-name">{track.title}</h1>
-          <button className="play-track"
-            onClick={() => this.playPauseTrack(trackInfo)}>
-            PLAY/PAUSE TRACK
-          </button>
+        <div className="track-image-container">
+
+        </div>
+        <div className="track-details">
+          <div className="track-header-details">
+            <h1 className="track-name">{track.title}</h1>
+              <button className="play-button"
+                onClick={() => this.playPauseTrack(trackInfo)}>
+                PLAY/PAUSE TRACK
+              </button>
+          </div>
+          <div className="track-wave-form">
+          </div>
+        </div>
       </div>
     );
   }
