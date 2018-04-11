@@ -1,3 +1,9 @@
-// Place all the styles related to the UsersController controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.user-profile-container {
+  top: 44px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 960px;
+  height: 100%;
+  margin: 0 auto;
+}

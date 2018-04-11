@@ -32,6 +32,7 @@ class FileUpload extends React.Component {
 
   render() {
     const noUploads = (Object.keys(this.props.uploads).length === 0);
+    const disabled = this.props.currentUser ? false : true;
     return (
       <div className="file-upload-container">
         {noUploads &&
@@ -39,13 +40,16 @@ class FileUpload extends React.Component {
         }
         <div className={"file-chooser" + (noUploads ? "" : " chooser-active")}>
           <header className={"upload-header" + (noUploads ? "" : " header-active")}>Upload to NoizeNimbus</header>
-          <label className={"file-label" + (noUploads ? "" : " label-active")}>Choose a file to upload
+          <label className={"file-label" + (noUploads ? "" : " label-active")}
+            >Choose a file to upload
             <input type="file"
               ref="nofile"
               onChange={this.handleAddFile}
               className="upload-file-button"
               style={{display: "none"}}
-              multiple/>
+              multiple
+              disabled={disabled}
+              />
           </label>
         </div>
 
