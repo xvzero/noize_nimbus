@@ -54,19 +54,31 @@
 * Rangeslider - Vertical slider
 */
 .rangeslider-vertical {
-  // margin: 20px auto;
-  height: 150px;
-  max-width: 10px;
-  background-color: #f2f2f2;
+  height: 75px;
+  margin: 10px auto;
+  max-width: 2px;
+  background-color: #ccc;
+  // overflow: hidden;
 
   .rangeslider__fill,
   .rangeslider__handle {
+    position: absolute;
+    height: 100%;
+    background-color: #f50;
   }
 
   .rangeslider__fill {
     width: 100%;
+    background-color: #f50;
+    box-shadow: none;
+    transform: rotateY(180deg);
     bottom: 0;
   }
   .rangeslider__handle {
+    height: 6px;
+    width: 6px;
+    left: -2px;
+    border-radius: 100%;
+    box-shadow: none;
   }
 }

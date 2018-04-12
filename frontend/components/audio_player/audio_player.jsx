@@ -42,6 +42,7 @@ class AudioPlayer extends React.Component {
     this.onProgress = this.onProgress.bind(this);
     this.onEnded = this.onEnded.bind(this);
     this.setDuration = this.setDuration.bind(this);
+    this.onVolumeChange = this.onVolumeChange.bind(this);
     this.setVolume = this.setVolume.bind(this);
     this.handleMute = this.handleMute.bind(this);
   }
@@ -237,8 +238,8 @@ class AudioPlayer extends React.Component {
                 <Slider
                   ref={volumebar => (this.volumebar = volumebar)}
                   min={0}
-                  max={100}
-                  step={1}
+                  max={1}
+                  step={0.1}
                   value={this.state.volume}
                   orientation='vertical'
                   tooltip={false}
