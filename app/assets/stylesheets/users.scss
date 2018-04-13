@@ -24,7 +24,6 @@
   height: 200px;
   display: flex;
   justify-content: center;
-  align-items: center;
   border: 1px solid #e5e5e5;
   margin-right: 15px;
   border-radius: 50%;
@@ -34,10 +33,11 @@
      background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
+     position: relative;
   }
 
   .img-chooser-button {
-    bottom: 75px;
+    top: 180px;
     opacity: 0;
     transition: background-color .2s ease-in-out,border-color .2s ease-in-out;
   }

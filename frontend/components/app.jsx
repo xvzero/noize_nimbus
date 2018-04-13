@@ -7,6 +7,7 @@ import AudioPlayerContainer from './audio_player/audio_player_container';
 import TrackIndexContainer from './track/track_index_container';
 import TrackPageContainer from './track/track_page_container';
 import UserProfileContainer from './user/user_profile_container';
+import LogOutPage from './session/logout_page';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import {
   Route,
@@ -30,7 +31,7 @@ class App extends React.Component {
           <Route path="/" component={NavBarContainer} />
         </Switch>
         <Switch>
-          <Route path="/logout" component={TrackIndexContainer} />
+          <Route path="/logout" component={LogOutPage} />
           <AuthRoute path="/login" component={TrackIndexContainer} />
           <ProtectedRoute path="/stream" component={TrackIndexContainer}/>
           <ProtectedRoute path="/collection" component={TrackIndexContainer} />

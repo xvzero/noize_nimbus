@@ -68,11 +68,14 @@ class AudioPlayer extends React.Component {
   }
 
   handlePrevButton() {
-    this.setState({ playedSeconds: 0 });
+    this.setState({ playedSeconds: 0 },
+    () => this.player.seekTo(this.state.playedSeconds));
+
   }
 
   handleNextButton() {
-    this.setState({ playedSeconds: this.player.getDuration() });
+    this.setState({ playedSeconds: this.player.getDuration() },
+    () => this.player.seekTo(this.state.playedSeconds));
   }
 
   handleLoopButton() {
@@ -104,17 +107,9 @@ class AudioPlayer extends React.Component {
     this.setState({ duration });
   }
 
-  // onVolumeMouseDown() {
-  //
-  // }
-
   onVolumeChange(volume) {
     this.setState({ volume });
   }
-
-  // onVolumeMouseUp() {
-  //   this.setState({ volume: this.volumebar.props.value });
-  // }
 
   setVolume(e) {
     this.setState({ volume: parseFloat(e.target.value) });
