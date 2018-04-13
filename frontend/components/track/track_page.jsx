@@ -12,7 +12,7 @@ class TrackPage extends React.Component {
 
   render() {
     return (
-      <div className="track-details">
+      <div className="track-page">
 
         <div className="comment-input-container">
         </div>

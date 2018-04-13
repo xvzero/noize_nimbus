@@ -42,13 +42,13 @@ class TrackItem extends React.Component {
         <div className="track-image-container">
           <img className="track-image" src={this.props.track.track_img_url} />
         </div>
-        <div className="track-details">
-          <header className="track-header-details">
+        <div className="track-header-section">
+          <header className="track-header">
             <button className={this.playPauseButton()}
               onClick={() => this.playPauseTrack(this.props.track)}>
             </button>
-            <header className="header-details">
-              <h2 className="track-artist">{}</h2>
+            <header className="track-header-details">
+              <h2 className="track-artist">{this.props.user.display_name}</h2>
               <h1 className="track-name">{this.props.track.title}</h1>
             </header>
           </header>
@@ -56,7 +56,7 @@ class TrackItem extends React.Component {
           </div>
 
           { this.props.track.author_id === this.props.currentUser.id &&
-            <div className="edit-track">
+            <div className="edit-track-buttons">
               <button className="edit-track-button"
                 onClick={() => this.toggleModal()}>Edit</button>
 

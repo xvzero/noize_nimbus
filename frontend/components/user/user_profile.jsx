@@ -110,7 +110,7 @@ class UserProfile extends React.Component {
             }
           </div>
 
-          <TrackIndexContainer />
+          <TrackIndexContainer user={user} />
 
           <div className="bio-section">
             {this.props.bio}

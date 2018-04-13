@@ -168,7 +168,10 @@
   background: #fff;
 }
 
-.track-header-details {
+.track-header-section {
+  padding: 15px;
+  margin-top: 15px;
+
   .play-button {
     background-image: asset_url('icons/play_button');
     background-repeat: no-repeat;
@@ -176,6 +179,7 @@
     background-size: cover;
     height: 36px;
     width: 36px;
+    margin-right: 10px;
   }
 
   .pause-button {
@@ -185,6 +189,7 @@
     background-size: cover;
     height: 36px;
     width: 36px;
+    margin-right: 10px;
   }
 }
 
@@ -200,4 +205,31 @@
   align-items: center;
   border: 1px solid #e5e5e5;
   margin-right: 15px;
+}
+
+.track-header {
+  display: flex;
+}
+
+.track-header-section {
+  color: #333;
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 1.2;
+  padding: 2px 7px 3px;
+  font-family: "Interstate","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Garuda,Verdana,Tahoma,sans-serif;
+}
+
+.edit-track-buttons {
+  margin-top: 10px;
+
+  .edit-track-button {
+    margin-right: 10px;
+  }
+}
+
+.track-item {
+  li {
+    margin: 20px 0;
+  }
 }

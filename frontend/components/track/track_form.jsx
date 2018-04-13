@@ -59,6 +59,7 @@ class TrackForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const formData = new FormData();
+    if (this.props.track) formData.append('track[id]', this.state.id);
     formData.append('track[author_id]', this.props.currentUser.id);
     formData.append('track[title]', this.state.title);
     formData.append('track[genre]', this.state.genre);
