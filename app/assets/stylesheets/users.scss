@@ -11,7 +11,7 @@
 .profile-banner {
   display: flex;
   justify-content: flex-start;
-  height: auto;
+  height: 260px;
   width: 100%;
   background: linear-gradient(315deg, rgb(215, 211, 208) 0%, rgb(81, 83, 93) 100%);
   margin: 0 auto;
@@ -37,13 +37,12 @@
   }
 
   .img-chooser-button {
-    bottom: 25px;
+    bottom: 75px;
     opacity: 0;
     transition: background-color .2s ease-in-out,border-color .2s ease-in-out;
   }
 
   .img-chooser-button:hover {
-    bottom: 25px;
     opacity: 1;
     transition: background-color .2s ease-in-out,border-color .2s ease-in-out;
   }
