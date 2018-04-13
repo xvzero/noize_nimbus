@@ -32,23 +32,6 @@ button {
   border-color: #fff;
 }
 
-.Modal {
-  position: relative;
-  width: 450px;
-  height: 620px;
-  margin: 76px auto;
-  background-color: #fff;
-}
-
-.Overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(242,242,242,0.9);
-}
-
 .session-form-container {
   display: flex;
   flex-direction: column;

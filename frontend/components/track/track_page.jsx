@@ -5,8 +5,12 @@ class TrackPage extends React.Component {
     super(props);
   }
 
+  componentWillMount() {
+    this.props.fetchTrack(this.props.match.trackUrl);
+  }
+
   render() {
-    const track = this.props.track;
+    console.log(this.props);
     return (
       <div className="track-details">
 

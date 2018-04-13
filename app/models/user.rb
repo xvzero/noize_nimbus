@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  has_attached_file :profile_img_file, default_url: "./assets/:style/default_profile_image.jpg"
+  validates_attachment_content_type :profile_img_file,
+                                    content_type: /^image\/(jpg|jpeg|pjpeg|png|x-png|gif|svg)$/
+
   validates :email,
             :session_token,
             :profile_url,
@@ -7,8 +11,9 @@ class User < ApplicationRecord
   validates :password_digest, presence: true
   validates :password, length: { minimum: 6, allow_nil: true }
   validates :age, numericality: { only_integer: true, greater_than: 13 }
-
   after_initialize :ensure_session_token, :ensure_profile_url
+
+
 
   attr_reader :password
 

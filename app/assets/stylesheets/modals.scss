@@ -1,0 +1,36 @@
+.session-form-modal {
+    position: relative;
+    width: 450px;
+    height: 620px;
+    margin: 76px auto;
+    background-color: #fff;
+  }
+
+.session-form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(242,242,242,0.9);
+}
+
+.user-form-modal {
+    position: relative;
+    width: 850px;
+    height: auto;
+    margin: 76px auto;
+    background-color: #fff;
+    transition: transform .3s cubic-bezier(.13,1.07,.5,1.01),visibility 0s;
+    padding: 25px;
+}
+
+.user-form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(242,242,242,0.9);
+  z-index: 3000;
+}

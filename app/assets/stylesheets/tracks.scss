@@ -179,3 +179,17 @@
     background-size: 12px 18px;
   }
 }
+
+.track-details-container{
+  display: flex;
+}
+
+.track-image-container {
+  width: 160px;
+  height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #e5e5e5;
+  margin-right: 15px;
+}

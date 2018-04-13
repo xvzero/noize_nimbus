@@ -4,11 +4,13 @@ import { fetchTrack } from '../../actions/track_actions';
 import TrackPage from './track_page';
 
 const mapStateToProps = (state, ownProps) => ({
-  track: state.entities.tracks[ownProps.match.params.trackUrl]
+  track: state.entities.tracks[ownProps.match.params.trackUrl],
+  author: state.entities.users[ownProps.match.params.userUrl],
+  currentUser: state.session.currentUser
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchTrack: trackId => dispatch(fetchTrack(trackId))
+  fetchTrack: trackUrl => dispatch(fetchTrack(trackUrl))
 });
 
 export default connect(

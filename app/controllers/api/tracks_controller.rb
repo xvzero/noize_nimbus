@@ -26,6 +26,11 @@ class Api::TracksController < ApplicationController
     end
   end
 
+  def show
+    debugger
+    @track = User.find_by(author_id: track_params[:author_id]).tracks
+  end
+
   private
 
   def track_params

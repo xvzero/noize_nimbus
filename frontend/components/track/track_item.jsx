@@ -19,19 +19,23 @@ class TrackItem extends React.Component {
   render() {
     const track = this.props.track;
     const trackInfo = merge(track, this.state);
+    console.log(this.props.user);
     return (
-      <div className="track-container">
+      <div className="track-details-container">
         <div className="track-image-container">
-
+          <img className="track-image" src={trackInfo.track_img_url} />
         </div>
         <div className="track-details">
-          <div className="track-header-details">
-            <h1 className="track-name">{track.title}</h1>
-              <button className="play-button"
-                onClick={() => this.playPauseTrack(trackInfo)}>
-                PLAY/PAUSE TRACK
-              </button>
-          </div>
+          <header className="track-header-details">
+            <button className="play-button"
+              onClick={() => this.playPauseTrack(trackInfo)}>
+              PLAY/PAUSE TRACK
+            </button>
+            <header className="header-details">
+              <h2 className="track-artist">{}</h2>
+              <h1 className="track-name">{track.title}</h1>
+            </header>
+          </header>
           <div className="track-wave-form">
           </div>
         </div>

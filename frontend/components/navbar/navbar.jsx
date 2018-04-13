@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 // import SearchBarContainer from './searchbar/searchbar_container';
+import SessionOptions from '../session/session_options';
 
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.handleLogout = this.handleLogout.bind(this);
   }
 
@@ -32,7 +33,9 @@ class NavBar extends React.Component {
           <nav className="header-middle">
           </nav>
           <nav className="header-right">
+            { this.props.currentUser &&
             <Link to="/upload" className="upload">Upload</Link>
+            }
             { this.props.currentUser &&
               <div className="profile-nav">
                 <Link to={this.props.currentUser.profile_url}>{this.props.currentUser.display_name}</Link>
@@ -42,6 +45,9 @@ class NavBar extends React.Component {
               <Link to="/logout"
                 onClick={this.handleLogout}
                 className="logout">Signout</Link>
+            }
+            { !this.props.currentUser &&
+              <SessionOptions />
             }
           </nav>
         </div>

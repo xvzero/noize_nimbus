@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180407083458) do
+ActiveRecord::Schema.define(version: 20180412074035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,7 +46,6 @@ ActiveRecord::Schema.define(version: 20180407083458) do
     t.string "display_name", null: false
     t.string "profile_url", null: false
     t.integer "age", null: false
-    t.string "profile_img_url"
     t.string "first_name"
     t.string "last_name"
     t.string "city"
@@ -54,6 +53,10 @@ ActiveRecord::Schema.define(version: 20180407083458) do
     t.text "bio"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "profile_img_file_file_name"
+    t.string "profile_img_file_content_type"
+    t.integer "profile_img_file_file_size"
+    t.datetime "profile_img_file_updated_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["profile_url"], name: "index_users_on_profile_url", unique: true
     t.index ["session_token"], name: "index_users_on_session_token", unique: true

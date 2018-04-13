@@ -25,8 +25,10 @@ export const createTrack = track => (
 export const updateTrack = track => (
   $.ajax({
     url: `/api/tracks/${track.id}`,
-    method: 'post',
-    data: { track }
+    method: 'patch',
+    contentType: false,
+    processData: false,
+    data: track
   })
 );
 

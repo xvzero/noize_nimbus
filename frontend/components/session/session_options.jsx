@@ -30,8 +30,8 @@ class SessionOptions extends React.Component {
         <Modal isOpen={this.state.activeModal === 'signin'}
           onRequestClose={() => this.toggleModal('')}
           ariaHideApp={false}
-          className="Modal"
-           overlayClassName="Overlay"
+          className="session-form-modal"
+           overlayClassName="session-form-overlay"
         >
           <LoginFormContainer />
         </Modal>
@@ -39,8 +39,8 @@ class SessionOptions extends React.Component {
         <Modal isOpen={this.state.activeModal === 'signup'}
           onRequestClose={() => this.toggleModal('')}
           ariaHideApp={false}
-          className="Modal"
-           overlayClassName="Overlay"
+          className="session-form-modal"
+           overlayClassName="session-form-overlay"
         >
           <SignupFormContainer />
         </Modal>

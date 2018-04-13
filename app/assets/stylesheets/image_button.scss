@@ -1,0 +1,36 @@
+.img-chooser-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 26px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: sans-serif;
+  font-weight: 100;
+  line-height: 20px;
+  background-color: #e5e5e5;
+  border: 1px solid #ccc;
+  color: #333;
+  box-sizing: border-box;
+  padding: 5px 10px;
+  margin-bottom: 20px;
+  position: absolute;
+  opacity: 0.7;
+  transition: opacity 150ms;
+
+  img {
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
+  }
+}
+
+.img-chooser-button:hover {
+  background-color: #fff;
+  border-color: rgba(0,0,0,.1);
+  background-clip: padding-box;
+  transition: background-color .2s ease-in-out, border-color .2s ease-in-out;
+  opacity: 1;
+  transition: opacity 150ms;
+}
