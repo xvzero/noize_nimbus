@@ -56,7 +56,7 @@ Tracks are able to have more than one attachment: the audio file and and an opti
 ---
 
 ### Audio player
-(https://i.imgur.com/ZduBJ9i.png)
+![audio player](https://i.imgur.com/ZduBJ9i.png)
 
 The audio player has most of the functionality of any audio player.  Users can seek through the entire song and can adjust the volume output through the interactive sliders. Currently, the previous and next button only take the player to the beginning or end of the song.  In the future when playlists or discovery algorithms are made, the buttons will go to the previous and next songs on the playlist.
 
