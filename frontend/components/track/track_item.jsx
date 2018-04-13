@@ -37,6 +37,7 @@ class TrackItem extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <div className="track-details-container">
         <div className="track-image-container">
@@ -48,14 +49,14 @@ class TrackItem extends React.Component {
               onClick={() => this.playPauseTrack(this.props.track)}>
             </button>
             <header className="track-header-details">
-              <h2 className="track-artist">{this.props.user.display_name}</h2>
+              <h2 className="track-artist"></h2>
               <h1 className="track-name">{this.props.track.title}</h1>
             </header>
           </header>
           <div className="track-wave-form">
           </div>
 
-          { this.props.track.author_id === this.props.currentUser.id &&
+          { this.props.currentUser && (this.props.track.author_id === this.props.currentUser.id) &&
             <div className="edit-track-buttons">
               <button className="edit-track-button"
                 onClick={() => this.toggleModal()}>Edit</button>

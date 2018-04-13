@@ -27,7 +27,7 @@ class NavBar extends React.Component {
             </Link>
             <ul className="header-left-list">
               <li className="header-left-list-item"><Link to={this.props.currentUser ? "/stream" : "/"}>Home</Link></li>
-              <li className="header-left-list-item"><Link to="/collection">Collection</Link></li>
+              {false && <li className="header-left-list-item"><Link to="/collection">Collection</Link></li>}
             </ul>
           </header>
           <nav className="header-middle">
