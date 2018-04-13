@@ -111,7 +111,10 @@ class AudioPlayer extends React.Component {
   }
 
   onVolumeChange(volume) {
-    this.setState({ volume });
+    this.setState({ volume },
+    () => {
+      if (volume > 0) this.setState({ muted: false });
+    });
   }
 
   setVolume(e) {
