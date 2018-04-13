@@ -22,6 +22,7 @@ class AudioPlayer extends React.Component {
       url: null,
       playing: false,
       volume: 1,
+      previousVolume: 0,
       muted: false,
       duration: 0,
       loop: false,
@@ -118,7 +119,18 @@ class AudioPlayer extends React.Component {
   }
 
   handleMute() {
-    this.setState({ muted: !this.state.muted });
+    if (this.state.muted) {
+      this.setState({
+        volume: this.state.previousVolume,
+        muted: !this.state.muted
+      });
+    } else {
+      this.setState({
+        previousVolume: this.state.volume,
+        muted: !this.state.muted,
+        volume: 0
+      });
+    }
   }
 
   render() {
