@@ -43,8 +43,14 @@ class TrackForm extends React.Component {
     if (answer === true) {
       this.setState({ update: false },
         () => {
-          this.props.removeErrors(this.state.id);
-          this.props.removeUpload(this.state.id);
+          if (this.props.formType === 'edit') {
+            this.props.removeErrors();
+            this.props.toggleModal();
+          }
+          else {
+            this.props.removeUploadErrors(this.state.id);
+            this.props.removeUpload(this.state.id);
+          }
         }
       );
     }
@@ -60,9 +66,13 @@ class TrackForm extends React.Component {
     formData.append('track[track_img_file]', this.state.track_img_file);
     formData.append('track[track_url]', this.state.track_url);
     formData.append('track[track_file]', this.state.track_file);
-    this.props.processForm(formData, this.state.id)
-      .then(() => this.setState({update: false}))
-      .then(() => this.props.removeUpload(this.state.id));
+
+    if (this.props.formType === 'edit')
+      this.props.updateTrack(formData);
+    else
+      this.props.createTrack(formData, this.state.id)
+        .then(() => this.setState({update: false}))
+        .then(() => this.props.removeUpload(this.state.id));
   }
 
   renderErrors() {
@@ -80,11 +90,15 @@ class TrackForm extends React.Component {
   }
 
   componentWillMount() {
-    this.setState(merge({}, this.state, this.props.upload));
+    if (this.props.formType === 'upload')
+      this.setState(merge({}, this.state, this.props.upload));
+    else
+      this.setState(merge({}, this.state, this.props.track));
   }
 
   componentWillUnmount() {
-    if (this.state.update) this.props.updateUpload(this.state);
+    if (this.state.update && this.props.formType === 'upload')
+      this.props.updateUpload(this.state);
   }
 
   render() {

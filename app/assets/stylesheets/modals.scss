@@ -34,3 +34,20 @@
   background-color: rgba(242,242,242,0.9);
   z-index: 3000;
 }
+
+.track-form-modal {
+    position: relative;
+    width: 850px;
+    height: auto;
+    margin: 76px auto;
+    background-color: #fff;
+  }
+
+.track-form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(242,242,242,0.9);
+}

@@ -11,7 +11,7 @@ class User < ApplicationRecord
   validates :password_digest, presence: true
   validates :password, length: { minimum: 6, allow_nil: true }
   validates :age, numericality: { only_integer: true, greater_than: 13 }
-  after_initialize :ensure_session_token, :ensure_profile_url
+  before_validation :ensure_session_token, :ensure_profile_url
 
 
 
@@ -23,7 +23,7 @@ class User < ApplicationRecord
   end
 
   def ensure_session_token
-    self.session_token = SecureRandom::urlsafe_base64
+    self.session_token ||= SecureRandom::urlsafe_base64
   end
 
   def ensure_profile_url

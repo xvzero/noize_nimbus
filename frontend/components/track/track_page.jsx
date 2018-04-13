@@ -1,4 +1,5 @@
 import React from 'react';
+import CommentIndexContainer from '../comment/comment_index_container';
 
 class TrackPage extends React.Component {
   constructor(props) {
@@ -10,10 +11,13 @@ class TrackPage extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className="track-details">
 
+        <div className="comment-input-container">
+        </div>
+
+        <CommentIndexContainer />
       </div>
     );
   }

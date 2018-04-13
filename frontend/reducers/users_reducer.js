@@ -20,7 +20,7 @@ const usersReducer = (state = {}, action) => {
     case RECEIVE_USER:
       return merge(newState, {[action.user.profile_url]: action.user});
     case REMOVE_USER:
-      delete newState[action.profile_url];
+      delete newState[action.user.profile_url];
       return newState;
     default:
       return state;

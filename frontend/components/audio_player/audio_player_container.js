@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchTrack } from '../../actions/track_actions';
-import { updateCurrentTrack } from '../../actions/audio_player_actions';
+import { getAudioPlayer, updateAudioPlayer } from '../../actions/audio_player_actions';
 import AudioPlayer from './audio_player';
 
 const mapStateToProps = state => ({
@@ -10,7 +10,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateCurrentTrack: duration => updateCurrentTrack(duration)
+  getAudioPlayer: () => dispatch(getAudioPlayer()),
+  updateAudioPlayer: audioPlayer => dispatch(updateAudioPlayer(audioPlayer))
 });
 
 export default connect(

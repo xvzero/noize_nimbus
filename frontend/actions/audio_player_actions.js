@@ -1,12 +1,13 @@
 export const PLAY_PAUSE_TRACK = "PLAY_PAUSE_TRACK";
-export const UPDATE_TRACK = "UPDATE_TRACK";
+export const UPDATE_AUDIO_PLAYER = "UPDATE_AUDIO_PLAYER";
+export const RECEIVE_AUDIO_PLAYER = "RECEIVE_AUDIO_PLAYER";
 
-export const playPauseTrack = trackInfo => ({
+export const playPauseTrack = track => ({
   type: PLAY_PAUSE_TRACK,
-  trackInfo
+  track
 });
 
-export const updateCurrentTrack = duration => ({
-  type: UPDATE_TRACK,
-  duration
+export const updateAudioPlayer = audioPlayer => ({
+  type: UPDATE_AUDIO_PLAYER,
+  audioPlayer
 });

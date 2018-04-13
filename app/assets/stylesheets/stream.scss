@@ -1,0 +1,20 @@
+.stream-page {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 0 auto;
+  padding: 92px;
+  width: 960px;
+  box-sizing: border-box;
+}
+
+.stream-tabs {
+  border-bottom: 1px solid #f2f2f2;
+  font-family: "Interstate","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Garuda,Verdana,Tahoma,sans-serif;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.stream-header {
+  font-size: 24px;
+}

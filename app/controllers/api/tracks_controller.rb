@@ -27,8 +27,28 @@ class Api::TracksController < ApplicationController
   end
 
   def show
-    debugger
     @track = User.find_by(author_id: track_params[:author_id]).tracks
+  end
+
+  def update
+    @track = Track.find(params[:id])
+
+    updated_params = track_params.reject { |_, v| v == "null" || v == "undefined" }
+
+    if @track.update(updated_params)
+      render "api/tracks/show"
+    else
+      render json: @track.errors.full_messages
+    end
+  end
+
+  def destroy
+    track = Track.find(params[:id])
+    track.destroy
+
+    @user = User.find(track.author_id)
+
+    render "api/users/show"
   end
 
   private

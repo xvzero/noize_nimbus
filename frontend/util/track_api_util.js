@@ -22,13 +22,13 @@ export const createTrack = track => (
   })
 );
 
-export const updateTrack = track => (
+export const updateTrack = trackData => (
   $.ajax({
-    url: `/api/tracks/${track.id}`,
+    url: `/api/tracks/${trackData.get('track[id]')}`,
     method: 'patch',
     contentType: false,
     processData: false,
-    data: track
+    data: trackData
   })
 );
 

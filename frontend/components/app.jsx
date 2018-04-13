@@ -8,6 +8,7 @@ import TrackIndexContainer from './track/track_index_container';
 import TrackPageContainer from './track/track_page_container';
 import UserProfileContainer from './user/user_profile_container';
 import LogOutPage from './session/logout_page';
+import StreamPage from './session/stream_page';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import {
   Route,
@@ -33,7 +34,7 @@ class App extends React.Component {
         <Switch>
           <Route path="/logout" component={LogOutPage} />
           <AuthRoute path="/login" component={TrackIndexContainer} />
-          <ProtectedRoute path="/stream" component={TrackIndexContainer}/>
+          <ProtectedRoute path="/stream" component={StreamPage}/>
           <ProtectedRoute path="/collection" component={TrackIndexContainer} />
           <Route path="/upload" component={UploadContainer} />
           <Route path="/:userUrl/:trackUrl" component={TrackPageContainer} />

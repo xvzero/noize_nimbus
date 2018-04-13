@@ -48,18 +48,20 @@ class AudioPlayer extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (this.state.track)
-      this.props.updateCurrentTrack(
-        merge({}, this.state.track, {playedSeconds: this.state.playedSeconds})
-      );
+    const newTrack = newProps.currentTrackId !== this.props.currentTrackId;
 
-    if (newProps.currentTrackId) {
+    if (this.state.url && newProps.currentTrackId !== this.props.currentTrackId)
+      newProps.updateAudioPlayer(merge({}, this.state));
+
+    if (newProps.currentTrackId !== this.props.currentTrackId) {
       const currentTrack = newProps.sessionTracks[newProps.currentTrackId];
+      const playedSeconds = currentTrack.playedSeconds || 0;
       this.setState({
         url: currentTrack.track_file_url,
-        played: currentTrack.played,
-        track: currentTrack
-      });
+        playedSeconds: playedSeconds,
+        track: currentTrack,
+        playing: true
+      }, () => this.player.seekTo(this.state.playedSeconds));
     }
   }
 

@@ -1,19 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { playPauseTrack } from '../../actions/audio_player_actions';
+import { playPauseTrack, getAudioPlayer } from '../../actions/audio_player_actions';
 import { fetchUser } from '../../actions/user_actions';
+import { deleteTrack } from '../../actions/track_actions';
 import TrackItem from './track_item';
 
 const mapStateToProps = (state, ownProps) => ({
-  user: state.entities.user
+  audioPlayer: state.ui.audioPlayer,
+  currentUser: state.session.currentUser
 });
 
 const mapDispatchToProps = dispatch => ({
-  playPauseTrack: action => dispatch(playPauseTrack(action)),
-  fetchUser: userId => dispatch(fetchUser(userId))
+  playPauseTrack: track => dispatch(playPauseTrack(track)),
+  deleteTrack: (trackId, trackUrl) => dispatch(deleteTrack(trackId, trackUrl))
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(TrackItem);

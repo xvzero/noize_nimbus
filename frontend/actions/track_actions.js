@@ -4,6 +4,7 @@ export const RECEIVE_TRACKS = "RECEIVE_TRACKS";
 export const RECEIVE_TRACK = "RECEIVE_TRACK";
 export const REMOVE_TRACK = "REMOVE_TRACK";
 export const RECEIVE_TRACK_ERRORS = "RECEIVE_TRACK_ERRORS";
+export const REMOVE_UPLOAD_ERRORS = "REMOVE_TRACK_ERRORS";
 export const REMOVE_TRACK_ERRORS = "REMOVE_TRACK_ERRORS";
 
 export const receiveTracks = tracks => ({
@@ -16,15 +17,20 @@ export const receiveTrack = track => ({
   track
 });
 
-export const removeTrack = trackId => ({
+export const removeTrack = trackUrl => ({
   type: REMOVE_TRACK,
-  trackId
+  trackUrl
 });
 
 export const receiveErrors = (uploadId, errors) => ({
   type: RECEIVE_TRACK_ERRORS,
   uploadId,
   errors
+});
+
+export const removeUploadErrors = uploadId => ({
+  type: REMOVE_UPLOAD_ERRORS,
+  uploadId
 });
 
 export const removeErrors = uploadId => ({
@@ -60,9 +66,9 @@ export const updateTrack = trackInfo => dispatch => (
   ))
 );
 
-export const deleteTrack = trackId => dispatch => (
+export const deleteTrack = (trackId, trackUrl) => dispatch => (
   APIUtil.deleteTrack(trackId).then(
-    () => dispatch(removeTrack(trackId)),
+    () => dispatch(removeTrack(trackUrl)),
     errors => dispatch(receiveErrors(errors.responseJSON)
   ))
 );

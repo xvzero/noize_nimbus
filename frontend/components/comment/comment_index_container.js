@@ -1,17 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchTracks } from '../../actions/track_actions';
-import TrackIndex from './track_index';
+import { fetchComments } from '../../actions/comment_actions';
+import CommentIndex from './comment_index';
 
 const mapStateToProps = state => ({
-  tracks: state.entities.tracks
+  comments: state.entities.comments
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchTracks: () => dispatch(fetchTracks())
+  fetchComments: () => dispatch(fetchComments())
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TrackIndex);
+)(CommentIndex);
