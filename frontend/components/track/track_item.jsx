@@ -33,10 +33,15 @@ class TrackItem extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    console.log(newProps);
+    const audioPlayer = newProps.audioPlayer;
+    const active = audioPlayer.currentTrackURL === this.props.track.track_url;
+
+    const playedSeconds =
+      active ? audioPlayer.playedSeconds : audioPlayer.sessionTracks[this.props.track.track_url];
+
     this.setState({
-      playing: newProps.audioPlayer.playing &&
-          newProps.audioPlayer.currentTrackURL === this.props.track.track_url
+      playing: audioPlayer.playing && active,
+      playedSeconds: playedSeconds
     });
   }
 
@@ -54,11 +59,14 @@ class TrackItem extends React.Component {
   }
 
   handleSeekChange(e) {
-    this.props.seekAudioPlayer(
-      this.props.track.track_url,
-      e.originalArgs[0] * e.wavesurfer.getDuration(),
-      e.wavesurfer.getDuration()
-    );
+    this.setState({
+      playedSeconds: e.originalArgs[0] * e.wavesurfer.getDuration()
+    },
+    () => this.props.seekAudioPlayer(
+              this.props.track.track_url,
+              this.state.playedSeconds,
+              e.wavesurfer.getDuration()
+    ));
   }
 
   handleReady(e) {
@@ -66,7 +74,6 @@ class TrackItem extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     const options = {
       container: document.querySelector(".track-wave-form"),
       barHeight: 0.5,
@@ -95,7 +102,7 @@ class TrackItem extends React.Component {
             <Wavesurfer
               onReady={this.handleReady}
               audioFile={this.props.track.track_file_url}
-              pos={this.props.audioPlayer.sessionTracks[this.props.track.track_file_url]}
+              pos={this.state.playedSeconds}
               onSeek={this.handleSeekChange}
               playing={this.state.playing}
               options={options}
