@@ -14,7 +14,7 @@ class TrackIndex extends React.Component {
     return (
       <ul className="track-item">
         {tracks.map((track, number) => (
-          <li key={`track-${number}`}><TrackItemContainer user={this.props.user} track={track}/></li>
+          <li key={`track-${number}`}><TrackItemContainer track={track}/></li>
         ))}
       </ul>
     );

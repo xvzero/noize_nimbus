@@ -19,21 +19,18 @@ class AudioPlayer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: null,
+      fileURL: null,
       playing: false,
       volume: 1,
       previousVolume: 0,
       muted: false,
       duration: 0,
       loop: false,
-      playedSeconds: 0,
-      lastSeekStart: 0,
-      lastSeekEnd: 0,
-      lastIntent: 0,
-      track: null
+      playedSeconds: 0
     };
 
-    this.handlePausePlay = this.handlePausePlay.bind(this);
+    this.handlePlay = this.handlePlay.bind(this);
+    this.handlePause = this.handlePause.bind(this);
     this.handlePrevButton = this.handlePrevButton.bind(this);
     this.handleNextButton = this.handleNextButton.bind(this);
     this.handleLoopButton = this.handleLoopButton.bind(this);
@@ -48,32 +45,36 @@ class AudioPlayer extends React.Component {
     this.handleMute = this.handleMute.bind(this);
   }
 
+  componentDidMount() {
+    this.props.passAudioPlayerRef(this.player);
+  }
+
   componentWillReceiveProps(newProps) {
-    const newTrack = newProps.currentTrackId !== this.props.currentTrackId;
-
-    if (this.state.url && newProps.currentTrackId !== this.props.currentTrackId)
-      newProps.updateAudioPlayer(merge({}, this.state));
-
-    if (newProps.currentTrackId !== this.props.currentTrackId) {
-      const currentTrack = newProps.sessionTracks[newProps.currentTrackId];
-      const playedSeconds = currentTrack.playedSeconds || 0;
+    const { audioPlayer, currentTrack } = newProps;
+    if (currentTrack) {
       this.setState({
-        url: currentTrack.track_file_url,
-        playedSeconds: playedSeconds,
-        track: currentTrack,
-        playing: true
-      }, () => this.player.seekTo(this.state.playedSeconds));
+        fileURL: currentTrack.track_file_url,
+        playing: audioPlayer.playing,
+        playedSeconds: audioPlayer.playedSeconds,
+        duration: audioPlayer.duration
+      }, () => {
+        this.player.seekTo(this.state.playedSeconds);
+      });
     }
   }
 
-  handlePausePlay() {
-    this.setState({ playing: !this.state.playing });
+  handlePlay() {
+    if (this.state.fileURL)
+      this.props.playAudioPlayer(this.props.audioPlayer.currentTrackURL);
+  }
+
+  handlePause() {
+      this.props.pauseAudioPlayer();
   }
 
   handlePrevButton() {
     this.setState({ playedSeconds: 0 },
     () => this.player.seekTo(this.state.playedSeconds));
-
   }
 
   handleNextButton() {
@@ -90,7 +91,12 @@ class AudioPlayer extends React.Component {
   }
 
   onSeekChange(playedSeconds) {
-    this.setState({ playedSeconds });
+    this.setState({ playedSeconds },
+      () => this.props.seekAudioPlayer(
+        this.props.audioPlayer.currentTrackURL,
+        this.state.playedSeconds,
+        this.state.duration
+      ));
   }
 
   onSeekMouseUp() {
@@ -137,134 +143,133 @@ class AudioPlayer extends React.Component {
   }
 
   render() {
-    if (this.state.url) {
-      return (
-        <div className="audio-player-container">
-          <div className="audio-player-elements">
-            <ReactPlayer
-              className="react-player"
-              ref={player => (this.player = player)}
-              width='100%'
-              height='100%'
-              url={this.state.url}
-              playing={this.state.playing}
-              loop={this.state.loop}
-              volume={this.state.volume}
-              muted={this.state.muted}
-              onProgress={this.onProgress}
-              onDuration={this.setDuration}
-              onEnded={this.onEnded}
+    console.log("playedSeconds: ", this.state.playedSeconds);
+    console.log("duration: ", this.state.duration);
+    console.log(this.progressbar);
+    return (
+      <div className="audio-player-container">
+        <div className="audio-player-elements">
+          <ReactPlayer
+            className="react-player"
+            ref={player => (this.player = player)}
+            width='100%'
+            height='100%'
+            url={this.state.fileURL}
+            playing={this.state.playing}
+            loop={this.state.loop}
+            volume={this.state.volume}
+            muted={this.state.muted}
+            onProgress={this.onProgress}
+            onDuration={this.setDuration}
+            onEnded={this.onEnded}
+          />
+
+          <div className="prev-button-container audio-player-button-containers">
+            <button className="prev-button audio-player-control-buttons"
+              onClick={this.handlePrevButton}
             />
+          </div>
 
-            <div className="prev-button-container audio-player-button-containers">
-              <button className="prev-button audio-player-control-buttons"
-                onClick={this.handlePrevButton}
+          { this.state.playing
+            ?
+            <div className="pause-button-container audio-player-button-containers">
+              <button className="pause-button audio-player-control-buttons"
+                onClick={this.handlePause}
               />
             </div>
+            :
+            <div className="play-button-container audio-player-button-containers">
+              <button className="play-button audio-player-control-buttons"
+                onClick={this.handlePlay}
+              />
+            </div>
+          }
 
-            { this.state.playing
+          <div className="next-button-container audio-player-button-containers">
+            <button className="next-button audio-player-control-buttons"
+              onClick={this.handleNextButton}
+            />
+          </div>
+
+          <div className="loop-button-container">
+            { this.state.loop === false
               ?
-              <div className="pause-button-container audio-player-button-containers">
-                <button className="pause-button audio-player-control-buttons"
-                  onClick={this.handlePausePlay}
-                />
-              </div>
-              :
-              <div className="play-button-container audio-player-button-containers">
-                <button className="play-button audio-player-control-buttons"
-                  onClick={this.handlePausePlay}
-                />
-              </div>
-            }
-
-            <div className="next-button-container audio-player-button-containers">
-              <button className="next-button audio-player-control-buttons"
-                onClick={this.handleNextButton}
+              <button className="not-looping-button audio-player-control-buttons"
+                onClick={this.handleLoopButton}
               />
+              :
+              <button className="is-looping-button audio-player-control-buttons"
+                onClick={this.handleLoopButton}
+              />
+            }
+          </div>
+
+          <div className="progress-bar-container">
+            <div className="playback-time-elapsed">
+              <span className="playback-time">
+                <FormattedTime numSeconds={this.state.playedSeconds}/>
+              </span>
             </div>
 
-            <div className="loop-button-container">
-              { this.state.loop === false
-                ?
-                <button className="not-looping-button audio-player-control-buttons"
-                  onClick={this.handleLoopButton}
-                />
-                :
-                <button className="is-looping-button audio-player-control-buttons"
-                  onClick={this.handleLoopButton}
-                />
-              }
-            </div>
-
-            <div className="progress-bar-container">
-              <div className="playback-time-elapsed">
-                <span className="playback-time">
-                  <FormattedTime numSeconds={this.state.playedSeconds}/>
-                </span>
-              </div>
-
-              <div className="progressbar-wrapper">
-                <div className="progressbar-background">
-                  <div className="progressbar">
-                    <Slider
-                      ref={progressbar => (this.progressbar = progressbar)}
-                      min={0}
-                      max={this.state.duration}
-                      step={1}
-                      value={this.state.playedSeconds}
-                      orientation='horizontal'
-                      tooltip={false}
-                      onChangeStart={this.onSeekMouseDown}
-                      onChange={this.onSeekChange}
-                      onChangeComplete={this.onSeekMouseUp}
-                    />
-                  </div>
+            <div className="progressbar-wrapper">
+              <div className="progressbar-background">
+                <div className="progressbar">
+                  <Slider
+                    ref={progressbar => (this.progressbar = progressbar)}
+                    min={0}
+                    max={this.state.duration}
+                    step={1}
+                    value={this.state.playedSeconds}
+                    orientation='horizontal'
+                    tooltip={false}
+                    onChangeStart={this.onSeekMouseDown}
+                    onChange={this.onSeekChange}
+                    onChangeComplete={this.onSeekMouseUp}
+                  />
                 </div>
               </div>
-
-              <div className="playback-time-duration">
-                <span className="playback-duration">
-                  <FormattedTime numSeconds={this.state.duration}/>
-                </span>
-              </div>
             </div>
 
+            <div className="playback-time-duration">
+              <span className="playback-duration">
+                <FormattedTime numSeconds={this.state.duration}/>
+              </span>
+            </div>
+          </div>
 
-            <div className="volume-button-container">
-              { !this.state.muted && this.state.volume >= 0.5 &&
-                <button className="high-volume-button"
-                  onClick={this.handleMute}
-                />
-              }
-              { !this.state.muted && this.state.volume < 0.5 && this.state.volume > 0 &&
-                <button className="low-volume-button"
-                  onClick={this.handleMute}
-                />
-              }
-              { (this.state.muted || this.state.volume === 0) &&
-                <button className="mute-volume-button"
-                  onClick={this.handleMute}
-                />
-              }
-              <div className="volume-slider">
-                <Slider
-                  ref={volumebar => (this.volumebar = volumebar)}
-                  min={0}
-                  max={1}
-                  step={0.1}
-                  value={this.state.volume}
-                  orientation='vertical'
-                  tooltip={false}
-                  onChange={this.onVolumeChange}
-                />
-              </div>
+
+          <div className="volume-button-container">
+            { !this.state.muted && this.state.volume >= 0.5 &&
+              <button className="high-volume-button"
+                onClick={this.handleMute}
+              />
+            }
+            { !this.state.muted && this.state.volume < 0.5 && this.state.volume > 0 &&
+              <button className="low-volume-button"
+                onClick={this.handleMute}
+              />
+            }
+            { (this.state.muted || this.state.volume === 0) &&
+              <button className="mute-volume-button"
+                onClick={this.handleMute}
+              />
+            }
+            <div className="volume-slider">
+              <Slider
+                ref={volumebar => (this.volumebar = volumebar)}
+                min={0}
+                max={1}
+                step={0.1}
+                value={this.state.volume}
+                orientation='vertical'
+                tooltip={false}
+                onChange={this.onVolumeChange}
+              />
             </div>
           </div>
         </div>
-      );
-    } else {
-      return <div></div>;
-    }
+      </div>
+    );
   }
 }
 

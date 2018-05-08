@@ -1,43 +1,81 @@
+require('wavesurfer.js');
+
 import React from 'react';
 import ReactPlayer from 'react-player';
 import merge from 'lodash/merge';
 import EditTrackFormContainer from './edit_track_form_container';
 import Modal from 'react-modal';
+import Wavesurfer from 'react-wavesurfer';
 
 class TrackItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      playedSeconds: 0,
+      playing: false,
       activeModal: false
     };
 
     this.toggleModal = this.toggleModal.bind(this);
+    this.handleSeekChange = this.handleSeekChange.bind(this);
+    this.handleReady = this.handleReady.bind(this);
   }
 
   toggleModal() {
     this.setState({ activeModal: !this.state.activeModal });
   }
 
-  playPauseTrack(track) {
-    this.props.playPauseTrack(track);
+  handlePlayPause() {
+    if (this.state.playing)
+      this.props.pauseAudioPlayer();
+    else
+      this.props.playAudioPlayer(this.props.track.track_url);
+  }
+
+  componentWillReceiveProps(newProps) {
+    console.log(newProps);
+    this.setState({
+      playing: newProps.audioPlayer.playing &&
+          newProps.audioPlayer.currentTrackURL === this.props.track.track_url
+    });
   }
 
   handleDelete() {
     const answer = confirm("Are you sure you want to delete this song? You cannot undo the delete.");
-    if (answer === true) this.props.deleteTrack(this.props.track.id, this.props.track.track_url);
+    if (answer === true)
+      this.props.deleteTrack(this.props.track.id, this.props.track.track_url);
   }
 
   playPauseButton() {
-    const player = this.props.audioPlayer;
-
-    if (player.playing && player.currentTrackId === this.props.track.id)
+    if (this.state.playing)
       return 'pause-button';
     else
       return 'play-button';
   }
 
+  handleSeekChange(e) {
+    this.props.seekAudioPlayer(
+      this.props.track.track_url,
+      e.originalArgs[0] * e.wavesurfer.getDuration(),
+      e.wavesurfer.getDuration()
+    );
+  }
+
+  handleReady(e) {
+    e.wavesurfer.setMute(true);
+  }
+
   render() {
     console.log(this.props);
+    const options = {
+      container: document.querySelector(".track-wave-form"),
+      barHeight: 0.5,
+      barWidth: 2,
+      normalize: false,
+      cursorWidth: 0,
+      progressColor: '#f50',
+      waveColor: '#999'
+    };
     return (
       <div className="track-details-container">
         <div className="track-image-container">
@@ -46,14 +84,22 @@ class TrackItem extends React.Component {
         <div className="track-header-section">
           <header className="track-header">
             <button className={this.playPauseButton()}
-              onClick={() => this.playPauseTrack(this.props.track)}>
+              onClick={() => this.handlePlayPause()}>
             </button>
             <header className="track-header-details">
-              <h2 className="track-artist"></h2>
+              <h2 className="track-artist">{this.props.track.track_artist}</h2>
               <h1 className="track-name">{this.props.track.title}</h1>
             </header>
           </header>
           <div className="track-wave-form">
+            <Wavesurfer
+              onReady={this.handleReady}
+              audioFile={this.props.track.track_file_url}
+              pos={this.props.audioPlayer.sessionTracks[this.props.track.track_file_url]}
+              onSeek={this.handleSeekChange}
+              playing={this.state.playing}
+              options={options}
+            />
           </div>
 
           { this.props.currentUser && (this.props.track.author_id === this.props.currentUser.id) &&
@@ -69,6 +115,7 @@ class TrackItem extends React.Component {
               >
                 <EditTrackFormContainer
                   track={this.props.track}
+                  audioPlayer={this.props.audioPlayer}
                   toggleModal={this.toggleModal} />
               </Modal>
 

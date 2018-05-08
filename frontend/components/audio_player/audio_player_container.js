@@ -1,17 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchTrack } from '../../actions/track_actions';
-import { getAudioPlayer, updateAudioPlayer } from '../../actions/audio_player_actions';
+import {
+  passAudioPlayerRef,
+  playAudioPlayer,
+  pauseAudioPlayer,
+  seekAudioPlayer
+} from '../../actions/audio_player_actions';
 import AudioPlayer from './audio_player';
 
 const mapStateToProps = state => ({
-  currentTrackId: state.ui.audioPlayer.currentTrackId,
-  sessionTracks: state.ui.audioPlayer.sessionTracks
+  audioPlayer: state.ui.audioPlayer,
+  currentTrack: state.entities.tracks[state.ui.audioPlayer.currentTrackURL]
 });
 
 const mapDispatchToProps = dispatch => ({
-  getAudioPlayer: () => dispatch(getAudioPlayer()),
-  updateAudioPlayer: audioPlayer => dispatch(updateAudioPlayer(audioPlayer))
+  passAudioPlayerRef: audioPlayerRef => dispatch(passAudioPlayerRef(audioPlayerRef)),
+  playAudioPlayer: trackURL => dispatch(playAudioPlayer(trackURL)),
+  pauseAudioPlayer: () => dispatch(pauseAudioPlayer()),
+  seekAudioPlayer: (trackURL, playedSeconds, duration) => dispatch(seekAudioPlayer(trackURL, playedSeconds, duration ))
 });
 
 export default connect(

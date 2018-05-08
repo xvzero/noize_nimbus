@@ -1,13 +1,25 @@
-export const PLAY_PAUSE_TRACK = "PLAY_PAUSE_TRACK";
-export const UPDATE_AUDIO_PLAYER = "UPDATE_AUDIO_PLAYER";
-export const RECEIVE_AUDIO_PLAYER = "RECEIVE_AUDIO_PLAYER";
+export const PASS_AUDIO_PLAYER = "GET_AUDIO_PLAYER";
+export const PLAY_AUDIO_PLAYER = "PLAY_AUDIO_PLAYER";
+export const PAUSE_AUDIO_PLAYER = "PAUSE_AUDIO_PLAYER";
+export const SEEK_AUDIO_PLAYER = "SEEK_AUDIO_PLAYER";
 
-export const playPauseTrack = track => ({
-  type: PLAY_PAUSE_TRACK,
-  track
+export const passAudioPlayerRef = audioPlayerRef => ({
+  type: PASS_AUDIO_PLAYER,
+  audioPlayerRef
 });
 
-export const updateAudioPlayer = audioPlayer => ({
-  type: UPDATE_AUDIO_PLAYER,
-  audioPlayer
+export const playAudioPlayer = trackURL => ({
+  type: PLAY_AUDIO_PLAYER,
+  trackURL
+});
+
+export const pauseAudioPlayer = () => ({
+  type: PAUSE_AUDIO_PLAYER
+});
+
+export const seekAudioPlayer = (trackURL, playedSeconds, duration) => ({
+  type: SEEK_AUDIO_PLAYER,
+  trackURL,
+  playedSeconds,
+  duration
 });

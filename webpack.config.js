@@ -1,4 +1,5 @@
-var path = require("path");
+const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
   context: __dirname,
@@ -7,6 +8,11 @@ module.exports = {
     path: path.resolve(__dirname, 'app', 'assets', 'javascripts'),
     filename: "bundle.js"
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      WaveSurfer: 'wavesurfer.js'
+    })
+  ],
   module: {
     loaders: [
       {
@@ -21,6 +27,11 @@ module.exports = {
   },
   devtool: 'source-map',
   resolve: {
-    extensions: [".js", ".jsx", "*"]
+    extensions: [".js", ".jsx", "*"],
+    // Alias `wavesurfer` to the correct wavesurfer package.
+    // (wavesurfer.js has some non-standard naming convention)
+    alias: {
+      wavesurfer: require.resolve('wavesurfer.js')
+    }
   }
 };
