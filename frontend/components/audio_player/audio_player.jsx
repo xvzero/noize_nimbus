@@ -48,19 +48,15 @@ class AudioPlayer extends React.Component {
   componentDidMount() {
     this.props.passAudioPlayerRef(this.player);
   }
-
+  
   componentWillReceiveProps(newProps) {
     const { audioPlayer, currentTrack } = newProps;
-    if (currentTrack) {
-      this.setState({
-        fileURL: currentTrack.track_file_url,
-        playing: audioPlayer.playing,
-        playedSeconds: audioPlayer.playedSeconds,
-        duration: audioPlayer.duration
-      }, () => {
-        this.player.seekTo(this.state.playedSeconds);
-      });
-    }
+    this.setState({
+      fileURL: currentTrack ? currentTrack.track_file_url : null,
+      playing: audioPlayer.playing,
+      playedSeconds: audioPlayer.playedSeconds,
+      duration: audioPlayer.duration
+    }, () => this.player.seekTo(this.state.playedSeconds));
   }
 
   handlePlay() {
@@ -105,7 +101,7 @@ class AudioPlayer extends React.Component {
   }
 
   onProgress(state) {
-    if (!this.state.seeking) this.setState(state);
+    if (!this.state.seeking && this.state.playing) this.setState(state);
   }
 
   onEnded() {
@@ -143,9 +139,6 @@ class AudioPlayer extends React.Component {
   }
 
   render() {
-    console.log("playedSeconds: ", this.state.playedSeconds);
-    console.log("duration: ", this.state.duration);
-    console.log(this.progressbar);
     return (
       <div className="audio-player-container">
         <div className="audio-player-elements">

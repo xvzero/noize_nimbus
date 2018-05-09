@@ -63,9 +63,9 @@ class TrackItem extends React.Component {
       playedSeconds: e.originalArgs[0] * e.wavesurfer.getDuration()
     },
     () => this.props.seekAudioPlayer(
-              this.props.track.track_url,
-              this.state.playedSeconds,
-              e.wavesurfer.getDuration()
+      this.props.track.track_url,
+      this.state.playedSeconds,
+      e.wavesurfer.getDuration()
     ));
   }
 
