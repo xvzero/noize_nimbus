@@ -48,7 +48,7 @@ class AudioPlayer extends React.Component {
   componentDidMount() {
     this.props.passAudioPlayerRef(this.player);
   }
-  
+
   componentWillReceiveProps(newProps) {
     const { audioPlayer, currentTrack } = newProps;
     this.setState({
@@ -75,7 +75,14 @@ class AudioPlayer extends React.Component {
 
   handleNextButton() {
     this.setState({ playedSeconds: this.player.getDuration() },
-    () => this.player.seekTo(this.state.playedSeconds));
+    () => {
+      this.player.seekTo(this.state.playedSeconds);
+      this.props.seekAudioPlayer(
+        this.props.audioPlayer.currentTrackURL,
+        this.state.playedSeconds,
+        this.state.duration
+      );
+    });
   }
 
   handleLoopButton() {

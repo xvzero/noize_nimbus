@@ -13,7 +13,16 @@ class TrackItem extends React.Component {
     this.state = {
       playedSeconds: 0,
       playing: false,
-      activeModal: false
+      activeModal: false,
+      options: {
+        // container: document.querySelector(".track-wave-form"),
+        barHeight: 0.5,
+        barWidth: 2,
+        normalize: false,
+        cursorWidth: 0,
+        progressColor: '#f50',
+        waveColor: '#999'
+      }
     };
 
     this.toggleModal = this.toggleModal.bind(this);
@@ -74,15 +83,6 @@ class TrackItem extends React.Component {
   }
 
   render() {
-    const options = {
-      container: document.querySelector(".track-wave-form"),
-      barHeight: 0.5,
-      barWidth: 2,
-      normalize: false,
-      cursorWidth: 0,
-      progressColor: '#f50',
-      waveColor: '#999'
-    };
     return (
       <div className="track-details-container">
         <div className="track-image-container">
@@ -105,7 +105,7 @@ class TrackItem extends React.Component {
               pos={this.state.playedSeconds}
               onSeek={this.handleSeekChange}
               playing={this.state.playing}
-              options={options}
+              options={this.state.options}
             />
           </div>
 
